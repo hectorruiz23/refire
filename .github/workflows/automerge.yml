@@ -1,11 +1,13 @@
-name: automerge
+name: pr
 
-# Deja la PR en automerge en cuanto se abre: cuando «tests» pase, GitHub la fusiona
-# (squash) y borra la rama. El repositorio tiene que permitir el automerge y el
-# borrado de rama al fusionar, que es el caso.
+# Al abrir o actualizar una PR la deja en automerge (squash): cuando «tests» pase,
+# GitHub la fusiona sola. Al cerrarse fusionada, borra su rama.
+#
+# El borrado va aquí porque el `delete_branch_on_merge` del repositorio no se aplicó
+# cuando fusionó el automerge: las PR #1 y #2 dejaron su rama viva.
 on:
   pull_request:
-    types: [opened, reopened, synchronize, ready_for_review]
+    types: [opened, reopened, synchronize, ready_for_review, closed]
 
 permissions:
   contents: write
@@ -13,11 +15,24 @@ permissions:
 
 jobs:
   automerge:
-    if: github.event.pull_request.draft == false
+    if: github.event.action != 'closed' && github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
       - name: Activar el automerge (squash)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR: ${{ github.event.pull_request.html_url }}
-        run: gh pr merge --auto --squash --delete-branch "$PR"
+        run: gh pr merge --auto --squash "$PR"
+
+  borrar-rama:
+    if: >-
+      github.event.action == 'closed'
+      && github.event.pull_request.merged == true
+      && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Borrar la rama fusionada
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REF: ${{ github.event.pull_request.head.ref }}
+        run: gh api -X DELETE "repos/${{ github.repository }}/git/refs/heads/$REF" --silent || true
