@@ -1,0 +1,66 @@
+session:
+  date: 2026-11-03
+  minutes: 12
+  difficulty: C1
+  scenario: "Final-round backend interview at a fintech"
+
+  scores:
+    fluency: 3
+    grammar: 3
+    lexis: 3
+    organisation: 3
+    interaction: 4
+
+  corrections:
+    - said: "we went laid off by our previous company"
+      better: "We were laid off by our previous company."
+      pattern: verb-form
+
+    - said: "I wanted to level up in terms of studying and improving myself"
+      better: "I wanted to develop my skills and become a stronger engineer."
+      pattern: collocations
+
+    - said: "my eager to learn more"
+      better: "My eagerness to keep learning."
+      pattern: word-choice
+
+    - said: "I'm a little introvert"
+      better: "I'm a bit introverted."
+      pattern: word-choice
+
+    - said: "I will speak my mind out"
+      better: "I'll speak my mind."
+      pattern: collocations
+
+    - said: "even if has an impact on the our delivery"
+      better: "Even if it affects our delivery schedule."
+      pattern: articles
+
+    - said: "I don't think we should be shipping anything that is not tested"
+      better: "I don't think we should ship anything that hasn't been tested."
+      pattern: verb-form
+
+    - said: "then I will not feel that risky"
+      better: "Then I wouldn't consider it as risky."
+      pattern: word-choice
+
+  new_vocab:
+    - "hit the ground running"
+    - "ramp up quickly"
+    - "speak my mind"
+    - "think things through"
+    - "deal-breaker"
+
+  fillers_per_minute: null
+
+  next_goal: >-
+    Practise structured answers to challenging interview questions.
+    State a position, support it with one concrete example, and explain
+    the business impact. Focus on reducing unnecessary fillers and
+    maintaining grammatical accuracy without relying on suggested
+    sentence structures.
+
+  previously_corrected_used_right:
+    - "Conditionals: 'If we do make it pass the test...'"
+    - "Professional disagreement: 'I'm completely against it.'"
+    - "Technical vocabulary: independently used 'projections', 'read models', 'integration tests', and 'delivery'."

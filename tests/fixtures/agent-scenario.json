@@ -1,0 +1,21 @@
+{
+  "scenario": "A migration review where the new message broker is behind schedule",
+  "you_play": "a sceptical staff engineer who owns the platform team",
+  "i_play": "the tech lead defending the migration plan",
+  "brief": {
+    "situation": "The new message broker is two weeks late and the old one still carries all the traffic.",
+    "my_position": "You want to keep the migration date and cut scope instead of moving the date.",
+    "stake": "Your team already told the business the date; moving it again costs you credibility."
+  },
+  "ammo": [
+    "The old broker handled peak traffic last year without an incident.",
+    "Cutting the replay feature buys us two weeks without moving the date.",
+    "A month's delay also means a month more of running both systems."
+  ],
+  "objections": [
+    "Cutting scope means shipping something half-done - who signs off on that?",
+    "What happens if the old broker fails between now and the new date?"
+  ],
+  "opener": "Straight to it - you are two weeks late. Why should we keep the date instead of moving it?",
+  "useful": ["The way I see it, ...", "That's fair, but ...", "What I'm worried about is ..."]
+}

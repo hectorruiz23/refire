@@ -1,0 +1,20 @@
+{
+  "phrases": [
+    {
+      "id": "p1",
+      "text": "Even if it has side effects, we should still ship it."
+    },
+    {
+      "id": "p2",
+      "text": "It is a shared responsibility, not one person's fault."
+    },
+    {
+      "id": "p3",
+      "text": "We should probably tell the team before we change the contract."
+    },
+    {
+      "id": "p4",
+      "text": "I am not sure I follow you, can you say that again?"
+    }
+  ]
+}

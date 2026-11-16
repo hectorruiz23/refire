@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "transcript": "even if it have side effects",
+  "expected": "even if it has side effects",
+  "match": false,
+  "words": [
+    { "expected": "even", "heard": "even", "ok": true },
+    { "expected": "if", "heard": "if", "ok": true },
+    { "expected": "it", "heard": "it", "ok": true },
+    { "expected": "has", "heard": "have", "ok": false },
+    { "expected": "side", "heard": "side", "ok": true },
+    { "expected": "effects", "heard": "effects", "ok": true }
+  ],
+  "duration_s": 3.4,
+  "pauses": 1,
+  "engine": "faster-whisper:small"
+}

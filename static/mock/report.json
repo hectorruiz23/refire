@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "session": {
+    "date": "2026-11-02",
+    "minutes": 11,
+    "difficulty": "B2",
+    "scenario": "incident review: stale prices after the cache rollout",
+    "scores": { "fluency": 4, "grammar": 3, "lexis": 4, "organisation": 3, "interaction": 4 },
+    "corrections": [
+      { "said": "If we would have rolled back, we would lose the fix", "better": "If we had rolled back, we would have lost the fix", "pattern": "conditionals" },
+      { "said": "We took a decision after the standup", "better": "We made a decision after the standup", "pattern": "collocations" },
+      { "said": "It depends of the cache key", "better": "It depends on the cache key", "pattern": "prepositions" },
+      { "said": "The impact is very big for checkout", "better": "The impact is very high for checkout", "pattern": "word-choice" }
+    ],
+    "new_vocab": ["stale read", "to fix forward"],
+    "fillers_per_minute": 4,
+    "next_goal": "decide out loud instead of listing options",
+    "previously_corrected_used_right": ["articles"]
+  },
+  "drills_added": 4,
+  "row_written": true,
+  "warnings": []
+}

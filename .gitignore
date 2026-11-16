@@ -1,0 +1,22 @@
+# datos de ejecución (informes, srs, tomas, audio y banco de trabajo)
+data/*
+# del banco de shadowing solo viaja el texto: tomas, referencias y cachés se quedan fuera
+!data/shadow/
+data/shadow/*
+!data/shadow/phrases.json
+.venv/
+__pycache__/
+*.pyc
+*.log
+
+# claves: nunca versionadas. El repo trae .env.example como plantilla
+.env
+.env.*
+!.env.example
+
+# el prompt del alumno es de cada uno: vive en ~/.config/refire/scenario.md
+prompts/scenario.md
+
+# ajustes locales del motor de voz: viven en ~/.config/refire/voicekit.toml. Si alguien
+# copia la plantilla dentro del repo, que no entre por accidente
+voicekit.toml

@@ -1,0 +1,20 @@
+# Ajustes del motor de voz, de ejemplo. Copia este fichero a voicekit.toml (que no se
+# versiona) y pon la ruta real de tu modelo y tu voz. La clave del LLM no se escribe
+# aquí: se lee de la variable de entorno que nombre `api_key_env`, o de un `.env`.
+data_dir = "data/talk"
+
+[stt]
+model = "small"
+prompt = "Um, so, like, we finish the spike yesterday and it depends of the team, so I would told her next week, even it have side effects."
+
+[llm]
+base_url = "https://api.tu-proveedor/v1"
+model = "tu-modelo"
+api_key_env = "MI_API_KEY"
+
+[llm.headers]
+User-Agent = "refire/0.1"
+
+[tts]
+voice = "en_GB-alba-medium"
+model_path = "/ruta/a/tu/modelo/en_GB-alba-medium.onnx"
