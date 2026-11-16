@@ -1,0 +1,23 @@
+name: automerge
+
+# Deja la PR en automerge en cuanto se abre: cuando «tests» pase, GitHub la fusiona
+# (squash) y borra la rama. El repositorio tiene que permitir el automerge y el
+# borrado de rama al fusionar, que es el caso.
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  automerge:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Activar el automerge (squash)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.pull_request.html_url }}
+        run: gh pr merge --auto --squash "$PR"
