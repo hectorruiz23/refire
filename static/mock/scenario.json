@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "scenario": "architecture review: the new cache layer is serving stale prices and the team is split between rolling back and fixing forward",
+  "block_b": "SCENARIO\nArchitecture review. A cache layer went live yesterday and some users are seeing stale prices. Two engineers want to roll back; one wants to fix forward. I am the tech lead running the review. You are the colleague who owns the cache service and you are pushing back on the rollback.\n\nYOU PLAY\nThe engineer who built the cache. You defend the design, you are tired, and you only accept a rollback if there is evidence of user impact. You ask short, direct questions. Do not make it easy for me: interrupt once, and ask me to repeat myself once.\n\nI PLAY\nThe tech lead: I have to summarise the incident, weigh both options and decide. I have 10 minutes.\n\nDIFFICULTY\nB2. Speak at a normal pace, with some contractions and some incomplete sentences. Do not simplify your vocabulary for me, but do not use idioms I would never hear at work.\n\nHOW IT ENDS\nWhen I say \"wrap up\", stop the roleplay and answer with ONE fenced YAML block and nothing else, using exactly this shape:\n\nsession:\n  date: <YYYY-MM-DD>\n  minutes: <int>\n  difficulty: <B1|B2|C1>\n  scenario: <short title>\n  scores:\n    fluency: <1-5>\n    grammar: <1-5>\n    lexis: <1-5>\n    organisation: <1-5>\n    interaction: <1-5>\n  corrections:\n    - said: \"<what I actually said>\"\n      better: \"<the corrected sentence>\"\n      pattern: <conditionals|articles|prepositions|collocations|verb-form|word-choice|discourse>\n  new_vocab: [\"...\"]\n  fillers_per_minute: <number or null>\n  next_goal: \"<one line>\"\n  previously_corrected_used_right: []\n\nScores use the fixed anchors: 1 = short and halting, 3 = long sentences with some pauses, 5 = long ideas without effort. Quote my real sentences in \"said\"; never invent corrections I did not make. Maximum 8 corrections.",
+  "chatgpt_url": "https://chatgpt.com/",
+  "brief": {
+    "situation": "The nightly invoice job has been failing for a week: it drops rows when the database is busy.",
+    "my_position": "You think a small patch is enough; a rewrite is two weeks you don't have.",
+    "stake": "If December goes wrong on your watch, it lands on your review."
+  },
+  "ammo": [
+    "The job only fails when the database is busy - that's a timeout, not a design flaw.",
+    "The rewrite has never been tested under load.",
+    "Two weeks now means no buffer before peak season."
+  ],
+  "objections": [
+    "A timeout you have patched twice already - why is this time different?",
+    "What happens if the patch holds for a month and then fails in December?"
+  ],
+  "useful": [
+    "The way I see it, ...",
+    "That's fair, but ...",
+    "What I'm worried about is ..."
+  ],
+  "opener": "So - patch it or rewrite it? Tell me why I should believe the patch holds this time."
+}

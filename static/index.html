@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Refire</title>
+<meta name="description" content="Práctica de inglés hablado: sesión en ChatGPT, registro en el vault y drills sobre los errores reales.">
+<meta name="color-scheme" content="dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+
+<header class="bar">
+  <div class="shell bar__in">
+    <span class="wordmark">Refire <span class="badge badge-accent" id="mode-badge" hidden>mock</span></span>
+    <nav class="tabs" role="tablist" aria-label="Secciones" style="flex-wrap: wrap; column-gap: 16px">
+      <button class="tab" type="button" role="tab" id="tab-sesion" aria-controls="panel-sesion" aria-selected="true" data-tab="sesion">Sesión</button>
+      <button class="tab" type="button" role="tab" id="tab-hablar" aria-controls="panel-hablar" aria-selected="false" tabindex="-1" data-tab="hablar">Hablar</button>
+      <button class="tab" type="button" role="tab" id="tab-registro" aria-controls="panel-registro" aria-selected="false" tabindex="-1" data-tab="registro">Registro</button>
+      <button class="tab" type="button" role="tab" id="tab-drills" aria-controls="panel-drills" aria-selected="false" tabindex="-1" data-tab="drills">Drills</button>
+      <button class="tab" type="button" role="tab" id="tab-shadow" aria-controls="panel-shadow" aria-selected="false" tabindex="-1" data-tab="shadow">Shadowing</button>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="shell" tabindex="-1">
+
+  <!-- ============ SESIÓN ============ -->
+  <section class="panel" id="panel-sesion" role="tabpanel" aria-labelledby="tab-sesion">
+    <div class="head">
+      <h1 id="h-sesion">Sesión</h1>
+      <p class="head__fact">Escenario, diez minutos hablando, wrap up.</p>
+    </div>
+
+    <div class="layout">
+      <aside class="rail" aria-labelledby="l-prep">
+        <p class="rail__label" id="l-prep">Preparar<span class="rail__sub">ajustes de la sesión</span></p>
+        <div class="rail__grp">
+          <span class="lbl" id="lbl-dif">Dificultad</span>
+          <div class="seg" id="difficulty" role="group" aria-labelledby="lbl-dif"></div>
+        </div>
+        <div class="rail__grp rail__grp--foco">
+          <span class="lbl" id="lbl-focus">Foco · vacío = sin foco</span>
+          <div class="chips" id="focus" role="group" aria-labelledby="lbl-focus"></div>
+        </div>
+        <div class="rail__go">
+          <button class="ghost" type="button" id="btn-new">Nuevo escenario</button>
+          <button class="reset" type="button" id="btn-clear-focus" title="Quitar todos los focos marcados">limpiar foco</button>
+        </div>
+        <span class="small muted" id="new-status" role="status"></span>
+      </aside>
+
+      <div class="content">
+        <section class="stage scene" aria-labelledby="h-escenario">
+          <h2 class="stage__label" id="h-escenario"><span class="num">01</span> Escenario</h2>
+          <article class="sheet">
+            <p class="sheet__meta" aria-label="Metadatos del escenario no disponibles"><span>dificultad: —</span><span>focos: —</span><span>minutos: —</span></p>
+            <div id="new-brief" hidden></div>
+            <p class="scene__empty">Pulsa Nuevo escenario. Aquí salen la situación, lo que defiendes, la munición y lo que te van a objetar, a tamaño de lectura y sin prisa.</p>
+            <div class="sheet__do">
+              <button class="btn-ink" type="button" id="btn-copy-prompt">copiar prompt</button>
+              <a class="link-ink" id="link-chatgpt" href="https://chatgpt.com/" target="_blank" rel="noopener">abrir ChatGPT</a>
+              <details id="new-manual" hidden>
+                <summary>ver el prompt</summary>
+                <pre id="new-manual-pre"></pre>
+              </details>
+            </div>
+          </article>
+        </section>
+
+        <section class="stage" aria-labelledby="h-informe">
+          <h2 class="stage__label" id="h-informe"><span class="num">02</span> Wrap up</h2>
+          <div class="intake">
+            <label class="lbl" for="report">YAML del wrap up</label>
+            <textarea class="code" id="report" name="report" spellcheck="false"
+              placeholder="session:&#10;  date: 2026-11-02&#10;  minutes: 12&#10;  ..."
+              aria-describedby="report-help"></textarea>
+            <p class="help" id="report-help">Pega el bloque tal cual te lo devuelva el wrap up. Puede venir con texto alrededor o dentro de ```yaml.</p>
+            <div class="samples" id="samples" hidden>
+              <button class="btn btn--ghost btn--sm" type="button" id="btn-example">cargar ejemplo</button>
+              <button class="btn btn--ghost btn--sm" type="button" id="btn-example-broken">cargar ejemplo roto (422)</button>
+            </div>
+            <div class="actions">
+              <button class="primary" type="button" id="btn-process">Procesar</button>
+              <span class="note">10–40 s · una sola vez</span>
+            </div>
+            <div class="progress" id="progress" hidden aria-live="polite" aria-atomic="true">
+              <span class="spinner" aria-hidden="true"></span>
+              <span id="step-text">leyendo</span>
+              <span class="elapsed" id="elapsed">0 s</span>
+            </div>
+          </div>
+          <aside class="receipt" aria-label="Última procesada: sin datos disponibles">
+            <span class="lbl">Última procesada</span>
+            <ul>
+              <li><span>fila añadida</span><b>—</b></li>
+              <li><span>drills nuevos</span><b>—</b></li>
+              <li><span>avisos</span><b>—</b></li>
+              <li><span>minutos</span><b>—</b></li>
+            </ul>
+          </aside>
+          <div class="result" id="result" hidden tabindex="-1"></div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HABLAR ============ -->
+  <section class="panel" id="panel-hablar" role="tabpanel" aria-labelledby="tab-hablar" tabindex="0" hidden>
+    <div class="head"><h1>Hablar</h1></div>
+    <p class="talk-hint">Aprietas, hablas, sueltas. El escenario hace de entrevistador.</p>
+
+    <h2 class="talk-label"><span>01</span> Escenario</h2>
+    <section class="talk-sheet" aria-label="Escenario de conversación">
+      <p class="talk-meta" id="talk-meta">Dificultad y foco de Sesión · 10 min</p>
+      <h3 id="talk-title">Prepara el escenario antes de hablar.</h3>
+      <p id="talk-situation">Puedes ajustar la dificultad y el foco en la pestaña Sesión.</p>
+      <details id="talk-scenario" hidden>
+        <summary>ver el escenario completo</summary>
+        <dl id="talk-brief"></dl>
+      </details>
+      <button class="talk-prepare" type="button" id="talk-start">Preparar escenario</button>
+    </section>
+
+    <h2 class="talk-label"><span>02</span> Conversación</h2>
+    <div class="talk-layout">
+      <div class="talk-conversation">
+        <div class="talk-states" id="talk-states" aria-label="Estado de la conversación" role="status">
+          <span data-state="ready" aria-current="true"><i aria-hidden="true"></i>listo</span>
+          <span data-state="listening"><i aria-hidden="true"></i>escuchando</span>
+          <span data-state="thinking"><i aria-hidden="true"></i>pensando</span>
+          <span data-state="speaking"><i aria-hidden="true"></i>hablando</span>
+        </div>
+        <button class="talk-push" type="button" id="talk-push" aria-pressed="false" aria-describedby="talk-help" disabled>Empezar a hablar</button>
+        <p class="talk-help" id="talk-help">Pulsa para empezar a hablar y vuelve a pulsar para terminar y enviar. La barra espaciadora hace lo mismo con el foco dentro de Hablar.</p>
+        <p class="talk-notice" id="talk-notice" role="status" hidden><span id="talk-message"></span> <a id="talk-repeat" href="#talk-push" hidden>repetir</a></p>
+        <p class="talk-notice" id="talk-playback" hidden>No se pudo reproducir la respuesta. <button type="button" class="talk-link" id="talk-play">escuchar respuesta</button></p>
+        <p class="talk-help" id="talk-connection" role="status" hidden>Sin conexión con los eventos. Reconectando…</p>
+        <p class="talk-empty" id="talk-empty">Tus palabras y las del entrevistador aparecerán aquí.</p>
+        <ol class="talk-turns" id="talk-earlier" aria-label="Turnos anteriores" hidden></ol>
+        <ol class="talk-turns" id="talk-turns" aria-label="Últimos turnos" aria-live="polite" aria-relevant="text additions"></ol>
+        <p class="talk-more" id="talk-more" hidden><a href="#talk-earlier" id="talk-history" aria-expanded="false" aria-controls="talk-earlier">ver los turnos anteriores</a></p>
+        <audio id="talk-audio" preload="auto" hidden></audio>
+      </div>
+      <aside class="talk-close" aria-label="Cierre de la sesión">
+        <span class="talk-label">Sesión</span>
+        <p class="talk-count" id="talk-count">0 turnos</p>
+        <p class="talk-note">Sin cancelar y sin pausa: si te enredas, te corriges hablando.</p>
+        <button class="talk-end" type="button" id="talk-end" disabled>Terminar y sacar el informe</button>
+        <p class="talk-note">Terminar estará disponible al acabar tu turno y la respuesta del entrevistador.</p>
+      </aside>
+    </div>
+    <section class="talk-report" id="talk-report" aria-label="Informe de Hablar" role="status" tabindex="-1" hidden></section>
+  </section>
+
+  <!-- ============ REGISTRO ============ -->
+  <section class="panel" id="panel-registro" role="tabpanel" aria-labelledby="tab-registro" hidden>
+    <div class="head">
+      <h1 id="h-registro">Registro</h1>
+      <p class="head__fact">Cómo vas, y qué sesión buscas.</p>
+    </div>
+
+    <p class="registro-status" id="registro-summary"></p>
+
+    <div class="registro-grid">
+      <div>
+        <section aria-labelledby="h-comp">
+          <h2 class="registro-label" id="h-comp"><span class="registro-number">01</span> Cómo voy</h2>
+          <div class="registro-card">
+            <div class="registro-comp-head" aria-hidden="true">
+              <span>Competencia</span><span>1 a 5</span><span>Última</span>
+            </div>
+            <div class="comp-grid" id="competences"></div>
+            <p class="registro-note">Notas del informe, estimadas por el modelo. Los datos medidos van en la columna de la derecha.</p>
+          </div>
+        </section>
+
+        <section aria-labelledby="h-sessions">
+          <h2 class="registro-label" id="h-sessions"><span class="registro-number">02</span> Sesiones</h2>
+          <div class="registro-card">
+            <div class="table-wrap" id="sessions-wrap"></div>
+            <p class="registro-note">La más reciente arriba. Notas estimadas de fluidez, gramática, léxico, organización e interacción, en ese orden.</p>
+          </div>
+        </section>
+      </div>
+
+      <aside>
+        <section aria-labelledby="h-pat">
+          <h2 class="registro-label" id="h-pat">Acierto por patrón <span class="registro-measured">medido</span></h2>
+          <div class="registro-card">
+            <div class="bars" id="pattern-bars"></div>
+          </div>
+        </section>
+
+        <section aria-labelledby="h-meas">
+          <h2 class="registro-label" id="h-meas">Audio <span class="registro-measured">medido</span></h2>
+          <div class="registro-card">
+            <div id="measured"></div>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ DRILLS ============ -->
+  <section class="panel" id="panel-drills" role="tabpanel" aria-labelledby="tab-drills" hidden>
+    <div class="head">
+      <h1 id="h-drills">Drills</h1>
+      <p class="head__fact">Un error real, una frase, y a la siguiente.</p>
+    </div>
+
+    <div class="controls">
+      <div class="drill-control-group">
+        <span class="drill-label" id="drill-mode-label">Modo</span>
+        <div class="seg" role="group" aria-labelledby="drill-mode-label">
+          <button class="seg__btn" type="button" id="mode-written" data-mode="written" aria-pressed="true">escrito</button>
+          <button class="seg__btn" type="button" id="mode-voice" data-mode="voice" aria-pressed="false">voz</button>
+        </div>
+      </div>
+      <div class="drill-control-group">
+        <label class="drill-label" for="drill-filter">Patrón</label>
+        <select id="drill-filter"></select>
+      </div>
+    </div>
+
+    <div class="drill-grid">
+      <div class="drill" id="drill-card"></div>
+      <aside class="drill-rail" aria-label="Sesión de hoy">
+        <span class="drill-label">Sesión de hoy</span>
+        <p class="drill-remaining">Quedan <strong id="drill-counter"></strong><span id="drill-counter-models"> drills</span> hoy</p>
+        <p class="small muted drill-foot" id="drill-foot"></p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ SHADOWING ============ -->
+  <section class="panel" id="panel-shadow" role="tabpanel" aria-labelledby="tab-shadow" hidden>
+    <div class="head">
+      <h1 id="h-shadow">Shadowing</h1>
+      <p class="head__fact">Escucha la referencia, repite encima y compara la melodía.</p>
+    </div>
+
+    <div class="shadow">
+      <div class="shadow__ingest">
+        <label for="shadow-url">Referencia</label>
+        <input class="shadow__url" id="shadow-url" type="url" inputmode="url"
+          autocomplete="off" spellcheck="false" placeholder="https://youtu.be/…"
+          aria-label="Enlace de YouTube">
+        <button class="btn btn--ghost btn--sm" type="button" id="btn-shadow-ingest">añadir frases</button>
+        <button class="btn btn--ghost btn--sm" type="button" id="btn-shadow-ingest-retry" hidden>reintentar</button>
+        <label for="shadow-phrase">Frase</label>
+        <div class="select">
+          <select id="shadow-phrase"></select>
+          <svg class="select__chevron" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2 4.5 6 8.5 10 4.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span class="small muted shadow__ingest-status" id="shadow-ingest-status" role="status"></span>
+      </div>
+
+      <div class="shadow__candidates" id="shadow-candidates" hidden></div>
+
+      <h2 class="shadow__label"><span>01</span> La frase</h2>
+      <div class="shadow__sheet">
+        <p class="shadow__source" id="shadow-source" hidden></p>
+        <p class="shadow__text" id="shadow-text" lang="en"></p>
+        <div class="shadow__actions">
+          <button class="btn btn--ghost" type="button" id="btn-shadow-listen" disabled><span aria-hidden="true">▶</span> Escuchar</button>
+          <button class="btn rec-btn" type="button" id="btn-shadow-record" disabled>
+            <span class="rec-dot" aria-hidden="true"></span>Grabar
+          </button>
+          <button class="btn btn--ghost" type="button" id="btn-shadow-cancel" hidden>Cancelar</button>
+          <span class="small muted" id="shadow-status" role="status"></span>
+        </div>
+        <div class="shadow__meter" id="shadow-meter" hidden aria-hidden="true">
+          <span class="shadow__meter-bar" id="shadow-meter-bar"></span>
+        </div>
+        <p class="shadow__sheet-note">Grabas encima de la referencia: escucha por el auricular mientras hablas.</p>
+      </div>
+
+      <div class="shadow__result" id="shadow-result" hidden>
+        <h2 class="shadow__label"><span>02</span> Comparación</h2>
+        <div class="shadow__comparison">
+          <figure class="shadow__figure">
+            <figcaption class="shadow__chart-head">
+              <strong>Melodía, de la primera a la última palabra</strong>
+              <span class="shadow__legend">
+                <span><i class="shadow__swatch shadow__swatch--ref" aria-hidden="true"></i>referencia</span>
+                <span><i class="shadow__swatch shadow__swatch--mine" aria-hidden="true"></i>tu voz</span>
+              </span>
+            </figcaption>
+            <div class="shadow__chart" id="shadow-chart"></div>
+          </figure>
+          <div class="shadow__score" id="shadow-score">
+            <div class="shadow__measure">
+              <p class="shadow__big-label">sonidos bien</p>
+              <p class="shadow__big" id="shadow-big"></p>
+              <p class="shadow__scope">esta frase con este micro</p>
+            </div>
+            <p class="shadow__compare" id="shadow-compare"></p>
+            <div class="shadow__misses" id="shadow-misses"></div>
+          </div>
+          <p class="shadow__note" id="shadow-note"></p>
+          <p class="shadow__guide">La línea es el tono de tu voz a lo largo de la frase. Lo que importa es la forma, no la altura: si tu línea es casi plana y la suya sube y baja, te falta melodía.</p>
+        </div>
+      </div>
+
+      <div class="result bad shadow__error" id="shadow-error" hidden role="alert">
+        <span class="shadow__error-icon" aria-hidden="true">⚠</span>
+        <p id="shadow-error-text"></p>
+        <button class="btn btn--ghost btn--sm" type="button" id="btn-shadow-retry">Reintentar</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="shell foot">
+  <p>Local, sin nube. Las sesiones viven en el vault de Obsidian; los drills, en <span class="code-inline">data/srs.json</span>.</p>
+</footer>
+
+<script src="mock/mock-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

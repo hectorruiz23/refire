@@ -1,0 +1,22 @@
+session:
+  date: 2026-11-05
+  minutes: 9
+  difficulty: C1
+  scenario: incident postmortem
+  scores:
+    fluency: 4
+    grammar: 4
+    lexis: 3
+    organisation: 4
+    interaction: 3
+  corrections:
+    - said: "We didn't documented the endpoint"
+      better: "We didn't document the endpoint"
+      pattern: syntax
+    - said: "Depends of the load balancer"
+      better: "It depends on the load balancer"
+      pattern: prepositions
+  new_vocab: ["rollout window"]
+  fillers_per_minute: null
+  next_goal: "keep the past simple clean under pressure"
+  previously_corrected_used_right: ["conditionals"]

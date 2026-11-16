@@ -1,0 +1,5 @@
+{
+  "ok": false,
+  "error": "audio_unavailable",
+  "detail": "faster-whisper no está instalado en este entorno. Usa el modo «me lo sé / no me lo sé»."
+}

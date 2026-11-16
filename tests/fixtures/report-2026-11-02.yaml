@@ -1,0 +1,37 @@
+session:
+  date: 2026-11-02
+  minutes: 12
+  difficulty: B2
+  scenario: architecture review
+  scores:
+    fluency: 4
+    grammar: 3
+    lexis: 3
+    organisation: 3
+    interaction: 4
+  corrections:
+    - said: "Even it look fine, the report is wrong"
+      better: "Even if it looks fine, the report is wrong"
+      pattern: conditionals
+    - said: "I am the responsible for the deploy"
+      better: "I am responsible for the deploy"
+      pattern: articles
+    - said: "We made a big mistake in the plan"
+      better: "We made a serious mistake in the plan"
+      pattern: collocations
+    - said: "We need a more strong argument"
+      better: "We need a stronger argument"
+      pattern: word-choice
+    - said: "We must to check the logs"
+      better: "We must check the logs"
+      pattern: verb-form
+    - said: "In the other side, the plan is risky"
+      better: "On the other side, the plan is risky"
+      pattern: prepositions
+    - said: "Also, moreover, we need to reschedule"
+      better: "Moreover, we need to reschedule"
+      pattern: discourse
+  new_vocab: ["follow up on a decision", "wrap up a meeting"]
+  fillers_per_minute: 6
+  next_goal: "hold the same level on a non-topic-heavy subject"
+  previously_corrected_used_right: []

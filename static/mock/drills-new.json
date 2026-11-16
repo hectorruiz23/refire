@@ -1,0 +1,61 @@
+{
+  "ok": true,
+  "items": [
+    {
+      "id": "d-0013",
+      "pattern": "conditionals",
+      "prompt": "If we ___ (roll) back, we would have lost the fix.",
+      "answer": "had rolled",
+      "alt_answers": ["'d rolled"],
+      "source": { "said": "If we would have rolled back", "better": "If we had rolled back" },
+      "created": "2026-11-02",
+      "streak": 0,
+      "wrong": 0,
+      "last_seen": null,
+      "due": "2026-11-02",
+      "retired": false
+    },
+    {
+      "id": "d-0014",
+      "pattern": "collocations",
+      "prompt": "We ___ a decision after the standup.",
+      "answer": "made",
+      "alt_answers": ["have made"],
+      "source": { "said": "We took a decision", "better": "We made a decision" },
+      "created": "2026-11-02",
+      "streak": 0,
+      "wrong": 0,
+      "last_seen": null,
+      "due": "2026-11-02",
+      "retired": false
+    },
+    {
+      "id": "d-0015",
+      "pattern": "prepositions",
+      "prompt": "It depends ___ the cache key.",
+      "answer": "on",
+      "alt_answers": ["upon"],
+      "source": { "said": "It depends of the cache key", "better": "It depends on the cache key" },
+      "created": "2026-11-02",
+      "streak": 0,
+      "wrong": 0,
+      "last_seen": null,
+      "due": "2026-11-02",
+      "retired": false
+    },
+    {
+      "id": "d-0016",
+      "pattern": "word-choice",
+      "prompt": "The impact is very ___ for checkout.",
+      "answer": "high",
+      "alt_answers": [],
+      "source": { "said": "The impact is very big", "better": "The impact is very high" },
+      "created": "2026-11-02",
+      "streak": 0,
+      "wrong": 0,
+      "last_seen": null,
+      "due": "2026-11-02",
+      "retired": false
+    }
+  ]
+}

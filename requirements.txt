@@ -1,0 +1,3 @@
+# Opcional: transcripción de voz y drills hablados. El servidor funciona sin esto
+# (los drills de voz y la pestaña Hablar se quedan sin audio).
+faster-whisper~=1.2.1

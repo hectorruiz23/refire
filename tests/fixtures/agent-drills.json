@@ -1,0 +1,134 @@
+{
+  "row": {
+    "date": "2026-11-02",
+    "minutes": 12,
+    "topics": "revisión de arquitectura; cambios en el plan; revisión de logs",
+    "primary_correction": "conditionals (1) — «Even it look fine» → «Even if it looks fine»",
+    "new_vocab": "\"follow up on a decision\", \"wrap up a meeting\"",
+    "next_goal": "sostener el mismo nivel en un tema no profesional"
+  },
+  "drills": [
+    {
+      "pattern": "conditionals",
+      "prompt": "Even if the report ___ fine, the numbers are wrong.",
+      "answer": "looks",
+      "alt_answers": [],
+      "source": {
+        "said": "Even it look fine, the report is wrong",
+        "better": "Even if it looks fine, the report is wrong"
+      },
+      "_why": "hueco del modelo sobre la corrección de condicionales"
+    },
+    {
+      "pattern": "conditionals",
+      "prompt": "Even ___ the build passes, we wait for the review.",
+      "answer": "if",
+      "alt_answers": [],
+      "source": {
+        "said": "Even it look fine, the report is wrong",
+        "better": "Even if it looks fine, the report is wrong"
+      },
+      "_why": "segundo hueco sobre la misma corrección"
+    },
+    {
+      "pattern": "articles",
+      "prompt": "She was ___ only reviewer on the change.",
+      "answer": "the",
+      "alt_answers": [],
+      "source": {
+        "said": "I am the responsible for the deploy",
+        "better": "I am responsible for the deploy"
+      },
+      "_why": "artículo definido"
+    },
+    {
+      "pattern": "articles",
+      "prompt": "___ deploy runs every night at two.",
+      "answer": "The",
+      "alt_answers": [],
+      "source": {
+        "said": "I am the responsible for the deploy",
+        "better": "I am responsible for the deploy"
+      },
+      "_why": "artículo al principio de frase"
+    },
+    {
+      "pattern": "collocations",
+      "prompt": "We had ___ with the launch - no incidents at all.",
+      "answer": "luck",
+      "alt_answers": [],
+      "source": {
+        "said": "We made a big mistake in the plan",
+        "better": "We made a serious mistake in the plan"
+      },
+      "_why": "colocación con have"
+    },
+    {
+      "pattern": "collocations",
+      "prompt": "We made a ___ mistake in the plan.",
+      "answer": "serious",
+      "alt_answers": [],
+      "source": {
+        "said": "We made a big mistake in the plan",
+        "better": "We made a serious mistake in the plan"
+      },
+      "_why": "colocación adjetivo + mistake"
+    },
+    {
+      "pattern": "word-choice",
+      "prompt": "We need a ___ argument to defend the change.",
+      "answer": "stronger",
+      "alt_answers": [],
+      "source": {
+        "said": "We need a more strong argument",
+        "better": "We need a stronger argument"
+      },
+      "_why": "comparativo irregular"
+    },
+    {
+      "pattern": "verb-form",
+      "prompt": "We must ___ the logs before the sprint ends.",
+      "answer": "check",
+      "alt_answers": [],
+      "source": {
+        "said": "We must to check the logs",
+        "better": "We must check the logs"
+      },
+      "_why": "modal sin to"
+    },
+    {
+      "pattern": "prepositions",
+      "prompt": "On the other ___, the plan is risky.",
+      "answer": "side",
+      "alt_answers": [],
+      "source": {
+        "said": "In the other side, the plan is risky",
+        "better": "On the other side, the plan is risky"
+      },
+      "_why": "expresión fija"
+    },
+    {
+      "pattern": "discourse",
+      "prompt": "___, we need to reschedule before the audit.",
+      "answer": "Moreover",
+      "alt_answers": [],
+      "source": {
+        "said": "Also, moreover, we need to reschedule",
+        "better": "Moreover, we need to reschedule"
+      },
+      "_why": "conector de añadido"
+    },
+    {
+      "pattern": "word-choice",
+      "prompt": "Say it the natural way: «We need a more strong argument»",
+      "answer": "We need a stronger argument",
+      "alt_answers": [],
+      "source": {
+        "said": "We need a more strong argument",
+        "better": "We need a stronger argument"
+      },
+      "_why": "frase modelo pedida como natural"
+    }
+  ],
+  "warnings": []
+}
