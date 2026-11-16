@@ -1,38 +1,60 @@
 name: pr
 
-# Al abrir o actualizar una PR la deja en automerge (squash): cuando «tests» pase,
-# GitHub la fusiona sola. Al cerrarse fusionada, borra su rama.
+# Fusiona sola la PR cuando «tests» está verde (squash) y borra su rama.
 #
-# El borrado va aquí porque el `delete_branch_on_merge` del repositorio no se aplicó
-# cuando fusionó el automerge: las PR #1 y #2 dejaron su rama viva.
+# Por qué no se usa el automerge de GitHub: quien fusiona entonces es el token de
+# Actions, y GitHub no encadena eventos de sus propias acciones, así que ni el
+# `delete_branch_on_merge` del repo ni un workflow con `pull_request: closed` llegaban
+# a correr (PR #1, #2 y #3 dejaron su rama viva). Aquí se espera a los checks y se
+# fusiona en el mismo trabajo, con `--delete-branch`.
+#
+# Consecuencia asumida: el merge lo firma github-actions y no habrá run de «tests» en
+# main tras el merge; los tests ya corrieron sobre la PR (GitHub los lanza contra el
+# merge con la base). Para frenar una PR, ponle la etiqueta `no-automerge`.
 on:
   pull_request:
-    types: [opened, reopened, synchronize, ready_for_review, closed]
+    types: [opened, reopened, synchronize, ready_for_review]
 
 permissions:
   contents: write
   pull-requests: write
 
 jobs:
-  automerge:
-    if: github.event.action != 'closed' && github.event.pull_request.draft == false
+  fusionar:
+    if: >-
+      github.event.pull_request.draft == false
+      && github.event.pull_request.head.repo.full_name == github.repository
+      && !contains(github.event.pull_request.labels.*.name, 'no-automerge')
     runs-on: ubuntu-latest
     steps:
-      - name: Activar el automerge (squash)
+      - name: Salir si la PR ya no está abierta
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR: ${{ github.event.pull_request.html_url }}
-        run: gh pr merge --auto --squash "$PR"
+        run: |
+          estado=$(gh pr view "$PR" --json state --jq .state)
+          echo "estado: $estado"
+          [ "$estado" = "OPEN" ] || exit 0
 
-  borrar-rama:
-    if: >-
-      github.event.action == 'closed'
-      && github.event.pull_request.merged == true
-      && github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: ubuntu-latest
-    steps:
-      - name: Borrar la rama fusionada
+      - name: Esperar a que existan los checks
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REF: ${{ github.event.pull_request.head.ref }}
-        run: gh api -X DELETE "repos/${{ github.repository }}/git/refs/heads/$REF" --silent || true
+          PR: ${{ github.event.pull_request.html_url }}
+        run: |
+          for i in $(seq 1 30); do
+            n=$(gh pr checks "$PR" --json name --jq 'length' 2>/dev/null || echo 0)
+            [ "$n" -gt 0 ] && { echo "checks: $n"; break; }
+            sleep 5
+          done
+
+      - name: Esperar a «tests» (falla si algo se pone rojo)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.pull_request.html_url }}
+        run: gh pr checks "$PR" --watch --fail-fast --interval 15
+
+      - name: Fusionar (squash) y borrar la rama
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.pull_request.html_url }}
+        run: gh pr merge --squash --delete-branch "$PR"
